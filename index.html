@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMBOK-ML en z/OS: Hoja de Ruta Interactiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Cool Grays and Blues -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling layout structured around the 5 PMBOK phases. A sticky top navigation bar allows for easy jumping between phases. Key technical concepts are abstracted into clickable modal windows to keep the main view clean and focused on the project flow. This structure facilitates a linear understanding of the project lifecycle while allowing for deep dives into complex topics on demand, enhancing user learning and navigation. -->
+    <!-- Visualization & Content Choices: Report Info (PMBOK Phases) -> Goal (Organize) -> Viz (Thematic sections with cards) -> Interaction (Scrolling, Nav clicking) -> Justification (Logical project progression). Report Info (Telum Architecture, MLz Editions, etc.) -> Goal (Inform/Compare) -> Viz (Modal Windows) -> Interaction (Click to open/close) -> Justification (Reduces clutter, allows focused deep-dives). NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 18px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3b82f6; /* blue-500 */
+            border: 4px solid #dbeafe; /* blue-100 */
+        }
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+        .modal-content {
+            transition: transform 0.25s ease;
+        }
+        .highlight-link {
+            color: #2563eb; /* blue-600 */
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+        }
+        .highlight-link:hover {
+            color: #1d4ed8; /* blue-700 */
+        }
+        /* Custom scrollbar for webkit browsers */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e5e7eb; /* gray-200 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #60a5fa; /* blue-400 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6; /* blue-500 */
+        }
+    </style>
+</head>
+<body class="text-gray-700 antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-800 shadow-lg sticky top-0 z-40 text-white">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold">ML en z/OS con PMBOK</h1>
+            <nav class="hidden md:flex space-x-3">
+                <a href="#inicio" class="nav-link px-3 py-2 rounded-md hover:bg-gray-700 transition-colors">Inicio</a>
+                <a href="#planificacion" class="nav-link px-3 py-2 rounded-md hover:bg-gray-700 transition-colors">Planificación</a>
+                <a href="#ejecucion" class="nav-link px-3 py-2 rounded-md hover:bg-gray-700 transition-colors">Ejecución</a>
+                <a href="#monitoreo" class="nav-link px-3 py-2 rounded-md hover:bg-gray-700 transition-colors">Monitoreo</a>
+                <a href="#cierre" class="nav-link px-3 py-2 rounded-md hover:bg-gray-700 transition-colors">Cierre</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#inicio" class="block py-2 px-4 text-sm hover:bg-gray-700">Inicio</a>
+            <a href="#planificacion" class="block py-2 px-4 text-sm hover:bg-gray-700">Planificación</a>
+            <a href="#ejecucion" class="block py-2 px-4 text-sm hover:bg-gray-700">Ejecución</a>
+            <a href="#monitoreo" class="block py-2 px-4 text-sm hover:bg-gray-700">Monitoreo</a>
+            <a href="#cierre" class="block py-2 px-4 text-sm hover:bg-gray-700">Cierre</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <!-- Hero Section -->
+        <section class="text-center my-8">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800">Hoja de Ruta Interactiva para la Implementación de ML en z/OS</h2>
+            <p class="mt-4 text-lg max-w-3xl mx-auto">
+                Una guía estructurada basada en el marco PMBOK® para planificar, ejecutar y gestionar proyectos de Machine Learning en IBM Z, aprovechando la potencia del procesador Telum.
+            </p>
+        </section>
+
+        <!-- Timeline Container -->
+        <div class="relative border-l-2 border-blue-200 ml-4 md:ml-0">
+            <!-- Phase 1: Inicio -->
+            <section id="inicio" class="mb-16 pl-8 md:pl-12 relative timeline-item">
+                <h3 class="text-2xl font-bold text-blue-600 mb-2">Fase 1: Inicio del Proyecto</h3>
+                <p class="mb-6">Establecer las bases estratégicas del proyecto, asegurando la alineación con los objetivos de negocio y la viabilidad técnica.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Validación de Caso de Uso</h4>
+                        <p>Identificar problemas de negocio críticos (ej. detección de fraude) que se benefician de la <span class="highlight-link" data-modal-target="modal-gravity">gravedad de datos</span> y la IA en tiempo real en IBM Z.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Constitución del Proyecto</h4>
+                        <p>Involucrar a todas las partes interesadas (negocio, ciencia de datos, infraestructura Z) y desarrollar el Acta de Constitución del Proyecto para formalizar su existencia.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Análisis de Viabilidad y ROI</h4>
+                        <p>Realizar un análisis preliminar del ROI, riesgos y viabilidad, considerando cómo la <span class="highlight-link" data-modal-target="modal-telum">aceleración de Telum</span> puede habilitar nuevas capacidades de negocio.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phase 2: Planificación -->
+            <section id="planificacion" class="mb-16 pl-8 md:pl-12 relative timeline-item">
+                <h3 class="text-2xl font-bold text-blue-600 mb-2">Fase 2: Planificación</h3>
+                <p class="mb-6">Diseñar la arquitectura del proyecto, detallando el alcance, los recursos, la infraestructura y las estrategias de gestión.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Definición de Alcance y EDT</h4>
+                        <p>Crear un enunciado del alcance claro y una Estructura de Desglose del Trabajo (EDT) detallada, incluyendo un plan para futuras iteraciones del modelo para evitar la corrupción del alcance.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Planificación de Infraestructura</h4>
+                        <p>Asegurar que se cumplen todos los prerrequisitos de hardware y software para la pila de ML elegida (<span class="highlight-link" data-modal-target="modal-mlz-editions">MLz</span>, código abierto en zCX/Linux) y planificar la capacidad (CPU, zIIPs, memoria).</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Estrategia de Datos</h4>
+                        <p>Definir cómo se accederá, preparará y gobernará los datos de z/OS (Db2, IMS, VSAM). Priorizar la preparación de datos en la plataforma para mantener la gravedad de los datos.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Enfoque de Desarrollo</h4>
+                        <p>Establecer el enfoque "Entrenar en Cualquier Lugar, Implementar en Z", detallando los entornos de entrenamiento, los formatos de modelo (ej. ONNX) y un plan riguroso de validación en el entorno Z.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phase 3: Ejecución -->
+            <section id="ejecucion" class="mb-16 pl-8 md:pl-12 relative timeline-item">
+                <h3 class="text-2xl font-bold text-blue-600 mb-2">Fase 3: Ejecución</h3>
+                <p class="mb-6">Construir, entrenar, optimizar e implementar la solución de Machine Learning en el entorno z/OS.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Ingeniería de Datos</h4>
+                        <p>Adquirir, limpiar y transformar los datos de z/OS, prestando especial atención a la conversión de codificación (EBCDIC/ASCII) y tipos de datos.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Entrenamiento del Modelo</h4>
+                        <p>Desarrollar y entrenar modelos usando MLz Enterprise (JupyterHub, Spark) o herramientas de código abierto (Python AI Toolkit, TensorFlow) en Z.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Aceleración de IA con Telum</h4>
+                        <p>Optimizar los modelos para la inferencia de alto rendimiento, aprovechando el acelerador de IA en chip. <span class="highlight-link" data-modal-target="modal-acceleration">Aprende más sobre ONNX y SnapML</span>.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Implementación e Inferencia</h4>
+                        <p>Desplegar los modelos como servicios de puntuación en z/OS, integrándolos con aplicaciones transaccionales y de lote. <span class="highlight-link" data-modal-target="modal-inference">Compara las interfaces de inferencia</span>.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Optimización de Costos</h4>
+                        <p>Implementar estrategias de descarga a zIIP para componentes elegibles de MLz (Java, Python) para reducir el consumo de CP y los costos de software.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phase 4: Monitoreo y Control -->
+            <section id="monitoreo" class="mb-16 pl-8 md:pl-12 relative timeline-item">
+                <h3 class="text-2xl font-bold text-blue-600 mb-2">Fase 4: Monitoreo y Control</h3>
+                <p class="mb-6">Implementar MLOps para asegurar la calidad, el rendimiento y la gobernanza continua de los modelos en producción.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Marco MLOps para Z</h4>
+                        <p>Establecer un marco de MLOps que combine prácticas de ML y DevOps, adaptado al entorno z/OS y fomentando la colaboración entre equipos.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Monitoreo Continuo</h4>
+                        <p>Utilizar el panel de administración de MLz y sus capacidades de <span class="highlight-link" data-modal-target="modal-trustworthy">IA Confiable</span> para monitorear el rendimiento, la deriva y la salud del modelo.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">CI/CD y Reentrenamiento</h4>
+                        <p>Integrar herramientas CI/CD (Jenkins, Git) con las APIs de MLz para automatizar el despliegue y establecer procesos para el reentrenamiento del modelo.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phase 5: Cierre -->
+            <section id="cierre" class="pl-8 md:pl-12 relative timeline-item">
+                <h3 class="text-2xl font-bold text-blue-600 mb-2">Fase 5: Cierre del Proyecto</h3>
+                <p class="mb-6">Finalizar el proyecto, documentar los resultados y asegurar una transición fluida hacia las operaciones continuas.</p>
+                 <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Revisión y Lecciones Aprendidas</h4>
+                        <p>Realizar una revisión final del rendimiento del proyecto contra las líneas base y documentar las lecciones aprendidas para futuros proyectos.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <h4 class="font-bold text-lg mb-2">Transferencia de Conocimiento</h4>
+                        <p>Asegurar una transferencia de conocimiento holística al equipo de MLOps, cubriendo tanto los aspectos de ML como los operativos específicos de z/OS.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer class="bg-gray-800 text-white mt-16 p-6 text-center">
+        <p>&copy; <span id="year"></span> Implementación de ML en z/OS. Contenido adaptado de la investigación proporcionada.</p>
+    </footer>
+
+    <!-- Modals -->
+    <div id="modal-gravity" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-lg shadow-2xl p-8 max-w-2xl w-full transform scale-95">
+            <h3 class="text-2xl font-bold text-blue-600 mb-4">Gravedad de Datos y Transaccional</h3>
+            <p class="mb-4">Este principio sostiene que es más eficiente y seguro procesar los datos donde residen. Para IBM Z, esto significa ejecutar la IA directamente en el mainframe, donde se originan y viven billones de transacciones y petabytes de datos críticos.</p>
+            <p class="font-semibold mb-2">Beneficios Clave:</p>
+            <ul class="list-disc list-inside space-y-1">
+                <li><strong>Latencia Mínima:</strong> Elimina los retrasos de red al no tener que mover datos a otra plataforma para su análisis.</li>
+                <li><strong>Seguridad Mejorada:</strong> Reduce la exposición al riesgo al mantener los datos sensibles dentro del perímetro seguro del mainframe.</li>
+                <li><strong>Reducción de Costos:</strong> Disminuye los costos asociados con la transferencia masiva de datos y el mantenimiento de infraestructuras duplicadas.</li>
+                <li><strong>Integridad de Datos:</strong> Permite tomar decisiones con los datos más actuales y consistentes.</li>
+            </ul>
+            <button class="modal-close mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Cerrar</button>
+        </div>
+    </div>
+    
+    <div id="modal-telum" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-lg shadow-2xl p-8 max-w-2xl w-full transform scale-95">
+            <h3 class="text-2xl font-bold text-blue-600 mb-4">Arquitectura del Procesador Telum</h3>
+            <p class="mb-4">El procesador IBM Telum, núcleo del IBM z16, integra un <strong>acelerador de IA dedicado directamente en el chip</strong>. Esta no es una GPU externa, sino una parte del propio procesador.</p>
+            <p class="mb-4">Esta decisión de diseño es crucial: al estar en el chip, el acelerador comparte acceso directo a la caché y la memoria con los núcleos de la CPU. Esto elimina los cuellos de botella de E/S que sufren los aceleradores externos, permitiendo una inferencia de IA de latencia extremadamente baja, ideal para la "IA en el punto de transacción".</p>
+            <p class="font-semibold mb-2">Componentes Clave:</p>
+            <ul class="list-disc list-inside space-y-1">
+                <li><strong>Acelerador de IA en Chip:</strong> Realiza los cálculos de IA.</li>
+                <li><strong>Instrucción NNPA:</strong> La instrucción de hardware de bajo nivel que ejecuta el trabajo en el acelerador.</li>
+                <li><strong>Biblioteca zDNN:</strong> Una API en C que abstrae la complejidad de la instrucción NNPA, permitiendo que los frameworks de ML la utilicen.</li>
+            </ul>
+            <button class="modal-close mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="modal-mlz-editions" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-lg shadow-2xl p-8 max-w-3xl w-full transform scale-95 overflow-y-auto max-h-[90vh]">
+            <h3 class="text-2xl font-bold text-blue-600 mb-4">Comparativa: MLz Enterprise vs. Core</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Característica</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">MLz Core</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">MLz Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr><td class="px-6 py-4 font-semibold">Gestión Ciclo de Vida</td><td class="px-6 py-4">API REST</td><td class="px-6 py-4">UI Guiada, API REST</td></tr>
+                        <tr><td class="px-6 py-4 font-semibold">Panel de Administración</td><td class="px-6 py-4">No (vía API)</td><td class="px-6 py-4">Sí (Web UI)</td></tr>
+                        <tr><td class="px-6 py-4 font-semibold">JupyterHub Integrado</td><td class="px-6 py-4">No</td><td class="px-6 py-4">Sí</td></tr>
+                        <tr><td class="px-6 py-4 font-semibold">Inferencia CICS/IMS</td><td class="px-6 py-4">No (solo REST)</td><td class="px-6 py-4">Sí (Interfaces Nativas)</td></tr>
+                        <tr><td class="px-6 py-4 font-semibold">Aceleración AIU (ONNX)</td><td class="px-6 py-4">No</td><td class="px-6 py-4">Sí</td></tr>
+                        <tr><td class="px-6 py-4 font-semibold">IA Confiable</td><td class="px-6 py-4">No</td><td class="px-6 py-4">Sí (Explicabilidad, Deriva)</td></tr>
+                        <tr><td class="px-6 py-4 font-semibold">Caso de Uso Principal</td><td class="px-6 py-4">AIOps, puntuación ligera</td><td class="px-6 py-4">Plataforma IA empresarial completa</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="modal-close mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Cerrar</button>
+        </div>
+    </div>
+    
+    <div id="modal-acceleration" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-lg shadow-2xl p-8 max-w-2xl w-full transform scale-95">
+            <h3 class="text-2xl font-bold text-blue-600 mb-4">Aceleración de IA con ONNX y SnapML</h3>
+            <p class="mb-4">Para aprovechar el acelerador de IA de Telum, los modelos deben estar en un formato compatible. MLz se centra en dos vías principales:</p>
+            <div class="space-y-4">
+                <div>
+                    <h4 class="font-bold text-lg">1. Vía ONNX (Open Neural Network Exchange)</h4>
+                    <p>Es el estándar de la industria para modelos de Deep Learning. El flujo es: <br> <strong>Entrenar (TensorFlow/PyTorch) &rarr; Convertir a ONNX &rarr; Compilar con zDLC &rarr; Desplegar en MLz.</strong><br>El IBM Z Deep Learning Compiler (zDLC) toma el modelo ONNX y lo compila en una biblioteca optimizada que utiliza directamente el acelerador Telum.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg">2. Vía SnapML</h4>
+                    <p>Una biblioteca de IBM para ML tradicional (ej. Random Forest, Gradient Boosting). SnapML puede importar modelos de Scikit-learn, XGBoost, etc., y optimizarlos para el acelerador de IA usando la biblioteca zDNN. Esto amplía la aceleración más allá del Deep Learning.</p>
+                </div>
+            </div>
+            <button class="modal-close mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="modal-inference" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-lg shadow-2xl p-8 max-w-3xl w-full transform scale-95 overflow-y-auto max-h-[90vh]">
+            <h3 class="text-2xl font-bold text-blue-600 mb-4">Interfaces de Inferencia de MLz</h3>
+            <p class="mb-4">MLz ofrece varias formas para que las aplicaciones invoquen un modelo. La elección depende del rendimiento y la flexibilidad requeridos.</p>
+             <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Interfaz</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Caso de Uso</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rendimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">CICS LINK (ALNSCORE)</td>
+                            <td class="px-6 py-4">Aplicaciones COBOL en CICS. Puntuación de fraude en tiempo real en una transacción.</td>
+                            <td class="px-6 py-4 text-green-600 font-bold">Latencia Muy Baja</td>
+                        </tr>
+                         <tr>
+                            <td class="px-6 py-4 font-semibold">WOLA</td>
+                            <td class="px-6 py-4">Apps en CICS, IMS o Batch. Comunicación memoria-a-memoria.</td>
+                            <td class="px-6 py-4 text-green-600 font-bold">Latencia Muy Baja</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">API Nativa Java</td>
+                            <td class="px-6 py-4">Aplicaciones Java en Liberty/WebSphere en z/OS.</td>
+                            <td class="px-6 py-4 text-green-600 font-bold">Baja Latencia</td>
+                        </tr>
+                         <tr>
+                            <td class="px-6 py-4 font-semibold">API RESTful</td>
+                            <td class="px-6 py-4">Aplicaciones distribuidas, microservicios, prototipado rápido.</td>
+                            <td class="px-6 py-4 text-yellow-600 font-bold">Latencia Media</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="modal-close mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Cerrar</button>
+        </div>
+    </div>
+    
+    <div id="modal-trustworthy" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-lg shadow-2xl p-8 max-w-2xl w-full transform scale-95">
+            <h3 class="text-2xl font-bold text-blue-600 mb-4">IA Confiable en MLz</h3>
+            <p class="mb-4">Para industrias reguladas como la banca, no basta con que un modelo sea preciso; también debe ser justo, explicable y robusto. MLz Enterprise aborda esto con sus capacidades de IA Confiable.</p>
+            <div class="space-y-4">
+                <div>
+                    <h4 class="font-bold text-lg">Detección de Deriva (Drift)</h4>
+                    <p>Monitorea si los datos de producción están cambiando con el tiempo en comparación con los datos de entrenamiento. Si hay deriva, el rendimiento del modelo puede degradarse, señalando la necesidad de reentrenar.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg">Explicabilidad (LIME/SHAP)</h4>
+                    <p>Proporciona explicaciones para predicciones individuales. Responde a la pregunta: "¿Por qué esta transacción fue marcada como fraude?". Esto es crucial para auditorías, cumplimiento y para generar confianza en la IA.</p>
+                </div>
+                 <div>
+                    <h4 class="font-bold text-lg">Gobernanza</h4>
+                    <p>Incluye la detección y mitigación de sesgos, asegurando que los modelos no discriminen injustamente, y proporcionando transparencia para cumplir con regulaciones como GDPR.</p>
+                </div>
+            </div>
+            <button class="modal-close mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Modal handling
+        const modals = document.querySelectorAll('.modal');
+        const modalTriggers = document.querySelectorAll('[data-modal-target]');
+        const modalCloses = document.querySelectorAll('.modal-close');
+
+        modalTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const targetId = trigger.getAttribute('data-modal-target');
+                const targetModal = document.getElementById(targetId);
+                if (targetModal) {
+                    targetModal.classList.remove('hidden');
+                    targetModal.classList.add('flex');
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                    setTimeout(() => {
+                        targetModal.classList.remove('opacity-0');
+                        targetModal.querySelector('.modal-content').classList.remove('scale-95');
+                    }, 10);
+                }
+            });
+        });
+
+        function closeModal(modal) {
+            modal.classList.add('opacity-0');
+            modal.querySelector('.modal-content').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }, 250);
+        }
+
+        modalCloses.forEach(closeButton => {
+            closeButton.addEventListener('click', () => {
+                closeModal(closeButton.closest('.modal'));
+            });
+        });
+        
+        modals.forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                modals.forEach(modal => {
+                    if (!modal.classList.contains('hidden')) {
+                        closeModal(modal);
+                    }
+                });
+            }
+        });
+        
+        // Active Nav Link on Scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const header = document.querySelector('header');
+        
+        function updateActiveLink() {
+            let index = sections.length;
+
+            while(--index && window.scrollY + header.offsetHeight < sections[index].offsetTop) {}
+            
+            navLinks.forEach((link) => link.classList.remove('bg-gray-900', 'text-white'));
+            
+            const activeLink = document.querySelector(`.nav-link[href="#${sections[index].id}"]`);
+            if(activeLink) {
+                activeLink.classList.add('bg-gray-900', 'text-white');
+            }
+        }
+        
+        window.addEventListener('scroll', updateActiveLink);
+        updateActiveLink(); // Initial call
+
+    </script>
+</body>
+</html>
